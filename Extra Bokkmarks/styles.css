@@ -1,0 +1,451 @@
+/* Extra Bookmark Bars Styles - Edge Native Appearance */
+.extra-bookmark-bars-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 999999 !important;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 12px;
+  background: #f8f4f4 !important; /* Updated color for light theme */
+  border-bottom: 1px solid #eeeeee !important; /* lighter hairline */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important; /* Added subtle shadow in light theme */
+  display: block !important;
+  visibility: visible !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .extra-bookmark-bars-container {
+    background: #2d2d2d !important; /* Pure dark gray background */
+    border-bottom-color: #3e3e3e !important;
+  }
+  
+  .extra-bookmark-bar {
+    border-bottom-color: #3e3e3e !important;
+  }
+  
+  .extra-bookmark-bar.drag-over {
+    background: #3a3a3a !important;
+  }
+}
+
+/* Collapsed state (force hide) */
+.extra-bookmark-bars-container.collapsed {
+  display: none !important;
+}
+
+/* When the toggle is on top of the bars, offset content to the right */
+.extra-bookmark-bars-container.with-toggle-offset .extra-bookmark-bar {
+  padding-left: 34px; /* tighter: accounts for 1px button border to reduce visible gap */
+}
+
+/* Tighten spacing for the very first bookmark item next to the arrow */
+.extra-bookmark-bars-container.with-toggle-offset .extra-bar-bookmarks .extra-bookmark-item:first-child {
+  margin-left: 1px; /* keep default spacing, do not affect offset */
+}
+.extra-bookmark-bars-container.with-toggle-offset .extra-bar-bookmarks .extra-bookmark-item:first-child a {
+  padding-left: 5.5px !important; /* equalize clickable area */
+  padding-right: 5.5px !important; /* match left padding without changing spacing */
+}
+
+/* Toggle button styled as a vertical bookmark tag */
+#extra-bars-toggle {
+  /* Isolate from hostile page CSS */
+  all: initial;
+  position: fixed;
+  box-shadow: none !important;
+  top: 0; /* Align with top of container */
+  left: 6px;
+  z-index: 1000001;
+  width: 22px;
+  height: 18px; /* Match first bar's height */
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border-radius: 0 0 3px 3px; /* Slightly smaller radius */
+  border: none !important; /* Ensure no border */
+  outline: none !important; /* Remove focus outline */
+  background: #f8f4f4; /* Updated color for light theme */
+  color: #333333; /* Darker color for better contrast */
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: none !important; /* No shadow on the arrow button */
+  user-select: none;
+  contain: layout paint;
+  -webkit-appearance: none; /* Remove default styles on WebKit */
+  -moz-appearance: none; /* Remove default styles on Firefox */
+  appearance: none; /* Standard property */
+}
+
+@media (prefers-color-scheme: dark) {
+  #extra-bars-toggle {
+    background: #403c3c !important;
+    color: #ffffff;
+  }
+  
+  /* Hover effect removed as per user request */
+  
+  #extra-bars-toggle::after {
+    border-bottom-color: #403c3c !important;
+  }
+}
+
+/* Chevron indicator (rotated for vertical orientation) */
+#extra-bars-toggle::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: currentColor;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23fff"><path d="M3.22 6.22a.75.75 0 0 1 1.06 0L8 9.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 7.28a.75.75 0 0 1 0-1.06z"/></svg>') no-repeat center / contain;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23fff"><path d="M3.22 6.22a.75.75 0 0 1 1.06 0L8 9.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 7.28a.75.75 0 0 1 0-1.06z"/></svg>') no-repeat center / contain;
+  transform: rotate(180deg); /* arrow up (bars shown) */
+}
+
+#extra-bars-toggle.collapsed::before {
+  transform: rotate(0deg); /* arrow down (bars hidden) */
+}
+
+/* Bookmark notch at the top (hang point) */
+#extra-bars-toggle::after {
+  content: '';
+  position: absolute;
+  top: 0; /* Align with top of button */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 4px solid #f8f4f4; /* Match the button background */
+}
+
+/* Hover effect removed as per user request */
+
+.extra-bookmark-bar {
+  background: transparent; /* inherit container to keep exact same tone */
+  border-bottom: 1px solid #eeeeee; /* lighter hairline */
+  padding: 0 calc(12px * var(--bar-scale, 1));
+  height: calc(34px * var(--bar-scale, 1));
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: background-color 0.15s ease;
+  box-sizing: border-box;
+  opacity: var(--bar-opacity, 1);
+}
+
+.extra-bookmark-bar:last-child {
+  border-bottom: none;
+}
+
+.extra-bookmark-bar.drag-over {
+  background: #f3f2f1 !important;
+  border-color: #0078d4 !important;
+}
+
+.extra-bookmark-bar:hover {
+  background: inherit; /* no color change on hover */
+}
+
+.extra-bar-bookmarks {
+  display: flex;
+  align-items: center;
+  gap: var(--item-spacing, 0px);
+  flex: 1;
+  height: 100%;
+  min-height: calc(34px * var(--bar-scale, 1));
+  overflow: hidden;
+}
+
+.empty-bar-message {
+  color: #8a8886;
+  font-size: 11px;
+  font-style: italic;
+  pointer-events: none;
+  user-select: none;
+  margin-left: 4px;
+}
+
+.extra-bookmark-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: calc(26px * var(--bar-scale, 1));
+  margin: calc(4px * var(--bar-scale, 1)) var(--item-spacing, 0px);
+  border-radius: 2px;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+  opacity: inherit; /* follow bar opacity */
+}
+
+/* Drag insertion indicators */
+.extra-bookmark-item.drop-before::before,
+.extra-bookmark-item.drop-after::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  width: 0;
+  border-left: 2px solid #0078d4;
+}
+.extra-bookmark-item.drop-before::before {
+  left: -1px;
+}
+.extra-bookmark-item.drop-after::after {
+  right: -1px;
+}
+
+.extra-bookmark-item:hover {
+  background: #f3f2f1;
+}
+
+.extra-bookmark-item a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 calc(6px * var(--bar-scale, 1));
+  text-decoration: none;
+  color: #323130;
+  font-size: calc(12px * var(--bar-scale, 1));
+  font-weight: 400;
+  white-space: nowrap;
+  max-width: calc(168px * var(--bar-scale, 1));
+  overflow: hidden;
+  border-radius: 2px;
+  transition: color 0.15s ease;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.extra-bookmark-item:hover a {
+  color: #0078d4;
+}
+
+.bookmark-favicon {
+  width: calc(16px * var(--bar-scale, 1));
+  height: calc(16px * var(--bar-scale, 1));
+  margin-right: calc(6px * var(--bar-scale, 1));
+  flex-shrink: 0;
+  border-radius: 1px;
+  object-fit: contain;
+}
+
+/* Icon-only bookmarks (no title) */
+.extra-bookmark-item a:not(:has(.bookmark-title)) {
+  padding: 0 5px;
+  min-width: calc(26px * var(--bar-scale, 1));
+  justify-content: center;
+}
+
+.extra-bookmark-item a:not(:has(.bookmark-title)) .bookmark-favicon {
+  margin-right: 0;
+}
+
+.bookmark-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Context Menu Styles */
+.bookmark-context-menu {
+  position: absolute;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14), 0 0 4px rgba(0, 0, 0, 0.12);
+  z-index: 1000000;
+  min-width: 180px;
+  padding: 4px 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 12px;
+}
+
+.menu-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #323130;
+  transition: background-color 0.15s ease;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  box-sizing: border-box;
+}
+
+.menu-item:hover {
+  background: #f3f2f1;
+}
+
+.menu-item.delete-item {
+  color: #d13438;
+}
+
+.menu-item.delete-item:hover {
+  background: #fdf2f2;
+}
+
+.menu-separator {
+  height: 1px;
+  background: #e5e5e5;
+  margin: 4px 0;
+}
+
+/* Drag and drop visual feedback */
+.extra-bookmark-bar.drag-over::before {
+  content: 'Drop bookmark here';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #0078d4;
+  font-size: 11px;
+  pointer-events: none;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+/* Dark mode support - Edge style */
+@media (prefers-color-scheme: dark) {
+  .extra-bookmark-bars-container {
+    background: #403c3c !important;
+    border-color: #5a5656 !important;
+  }
+
+  #extra-bars-toggle {
+    border-color: #5a5656;
+    background: #403c3c;
+    color: #ffffff;
+    box-shadow: none;
+  }
+
+  #extra-bars-toggle::after {
+    border-bottom-color: #403c3c; /* match bg in dark mode for top notch */
+  }
+
+  #extra-bars-toggle:hover {
+    background: #474343;
+  }
+
+  .extra-bookmark-bar {
+    background: transparent;
+    border-color: #5a5656;
+  }
+
+  .extra-bookmark-bar:hover {
+    background: inherit;
+  }
+
+  .extra-bookmark-bar.drag-over {
+    background: #0f3a5f !important;
+  }
+
+  .empty-bar-message {
+    color: #8a8886;
+  }
+
+  .extra-bookmark-item:hover {
+    background: #2d2d2d;
+  }
+
+  .extra-bookmark-item a {
+    color: #ffffff;
+  }
+
+  .extra-bookmark-item:hover a {
+    color: #60cdff;
+  }
+
+  .bookmark-context-menu {
+    background: #2d2d2d;
+    border-color: #484644;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.32), 0 0 4px rgba(0, 0, 0, 0.24);
+  }
+
+  .menu-item {
+    color: #ffffff;
+  }
+
+  .menu-item:hover {
+    background: #404040;
+  }
+
+  .menu-item.delete-item {
+    color: #ff6b6b;
+  }
+
+  .menu-item.delete-item:hover {
+    background: #4a2d2d;
+  }
+
+  .menu-separator {
+    background: #484644;
+  }
+
+  .extra-bookmark-bar.drag-over::before {
+    color: #60cdff;
+    background: rgba(45, 45, 45, 0.95);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .extra-bookmark-bar {
+    padding: 0 8px;
+    height: 30px;
+  }
+  
+  .extra-bookmark-item {
+    height: 22px;
+    margin: 4px 1px;
+  }
+  
+  .extra-bookmark-item a {
+    max-width: 120px;
+    font-size: 11px;
+    padding: 0 4px;
+  }
+
+  .bookmark-context-menu {
+    min-width: 160px;
+    font-size: 11px;
+  }
+
+  .menu-item {
+    padding: 6px 10px;
+    height: 28px;
+  }
+}
+
+/* Ensure visibility on all pages */
+.extra-bookmark-bars-container * {
+  box-sizing: border-box;
+}
+
+/* Special handling for new tab pages */
+body[data-ntp] .extra-bookmark-bars-container,
+microsoft-ntp .extra-bookmark-bars-container,
+body.ntp .extra-bookmark-bars-container {
+  position: fixed !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Force visibility override */
+.extra-bookmark-bars-container {
+  opacity: 1 !important;
+  transform: none !important;
+  clip: auto !important;
+  clip-path: none !important;
+}
