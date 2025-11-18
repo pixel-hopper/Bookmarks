@@ -12,9 +12,9 @@ A lightweight browser extension that enhances your browsing experience by adding
 
 ## 🔗 Links
 
-[Chrome](https://chromewebstore.google.com/detail/extra-bookmarks/ehojlnmaejmbninddamefelfcdkmemoa?hl=es) https://chromewebstore.google.com/detail/extra-bookmarks/ehojlnmaejmbninddamefelfcdkmemoa?hl=es
+Chrome Web Store: [Link](https://chromewebstore.google.com/detail/extra-bookmarks/ehojlnmaejmbninddamefelfcdkmemoa?hl=es) 
 
-[Edge](https://microsoftedge.microsoft.com/addons/detail/extra-bookmarks/chhcfbhlmaepdcelbmmbmhjamapkcbpl) https://microsoftedge.microsoft.com/addons/detail/extra-bookmarks/chhcfbhlmaepdcelbmmbmhjamapkcbpl
+Microsoft Edge Add On: [Link](https://microsoftedge.microsoft.com/addons/detail/extra-bookmarks/chhcfbhlmaepdcelbmmbmhjamapkcbpl) 
 
 ## 🌟 About Me
 
